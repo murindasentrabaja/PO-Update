@@ -302,7 +302,8 @@ function render(){
   else L.push('Belum ada PO masuk pada tanggal ini.','');
   L.push(`📦 *Stok tersedia: ${stokTot} unit*`,Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`${u} ${n}`).join(' • '),'',
     `Total PO berjalan: ${Object.keys(tr).sort().map(c=>c.replace(/^PT /,'').replace(/ Indonesia$/,'')+' '+tr[c].n).join(' • ')}`,
-    `MSB ERP System ${LINK}`);
+    `MSB ERP System 
+    ${LINK}`);
   $('#wa').value=L.join('\n');
   LAST={sel,byC,stokU,stokTot,nPO,T};cu();
 }
@@ -445,7 +446,7 @@ function authUI(){
 }
 $('#usr').onclick=e=>{if(e.target.closest('#bOut')){USER=null;try{localStorage.removeItem('updpo_user')}catch(x){}authUI();toast('Anda sudah keluar')}};
 $('#bLogin').onclick=()=>{
-  ov(`<div class="wl"><div class="orb"><svg class="ic"><use href="#i-login"/></svg></div><h3>Masuk</h3><p>Masuk untuk membuka kalimat update WhatsApp</p></div><input class="fld" id="lu" placeholder="Username" autocomplete="username"><input class="fld" id="lp" type="password" placeholder="Password" autocomplete="current-password"><div class="err" id="le"></div><button class="pri" id="lgo">Masuk</button><button data-x style="width:100%;margin-top:8px">Batal</button>`);
+  ov(`<div class="wl"><div class="orb"><svg class="ic"><use href="#i-login"/></svg></div><h3>Masuk</h3><p>Silahkan Masuk Dengan Akun Developer</p></div><input class="fld" id="lu" placeholder="Username" autocomplete="username"><input class="fld" id="lp" type="password" placeholder="Password" autocomplete="current-password"><div class="err" id="le"></div><button class="pri" id="lgo">Masuk</button><button data-x style="width:100%;margin-top:8px">Batal</button>`);
   $('#lgo').onclick=doLogin;$('#lp').onkeydown=e=>{if(e.key=='Enter')doLogin()};setTimeout(()=>$('#lu').focus(),400);
 };
 async function doLogin(){
