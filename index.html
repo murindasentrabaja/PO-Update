@@ -244,8 +244,8 @@ async function load(){
     msg('');
   }catch(e){
     try{R=JSON.parse(localStorage.getItem('updpo')||'[]')}catch(x){R=[]}
-    msg(R.length?'Tidak bisa terhubung ke Sistem ERP MSB, menampilkan data terakhir yang tersimpan.':
-      API?'Data dari Sistem ERP MSB belum terbaca.');
+    msg(R.length?'Tidak bisa terhubung ke Google Sheets, menampilkan data terakhir yang tersimpan.':
+      API?'Data dari Google Sheets belum terbaca. Periksa deployment Apps Script (akses: Anyone).':'URL Apps Script belum diisi di file HTML (API).');
   }
   $('#stamp').textContent='Diperbarui '+new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
   sel='';render();welcome();
