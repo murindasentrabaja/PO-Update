@@ -321,7 +321,7 @@ function render(){
   else L.push('Belum ada PO masuk pada tanggal ini.','');
   L.push(`📦 *Stok tersedia: ${stokTot} unit*`,Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`${u} ${n}`).join(' • '),'',
     `Total PO berjalan: ${Object.keys(tr).sort().map(c=>c.replace(/^PT /,'').replace(/ Indonesia$/,'')+' '+tr[c].n).join(' • ')}`,
-    '','Dear Sobat MSB,','Silakan akses MSB ERP System melalui link berikut:',LINK,'','Terima kasih atas perhatian dan kerja samanya. 🙏');
+    '','Dear Sobat MSB,','Pesan ini dikirim dari MSB ERP System.','Untuk detail lengkap, silakan akses melalui link berikut:',LINK,'','Terima kasih atas perhatian dan kerja samanya. 🙏');
   $('#wa').value=L.join('\n');
   LAST={sel,byC,stokU,stokTot,nPO,T};cu();
 }
