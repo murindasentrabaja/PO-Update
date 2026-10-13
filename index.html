@@ -186,7 +186,7 @@ textarea{position:relative;width:100%;min-height:290px;resize:vertical;border:1p
   <div class="card glass"><div id="shot"><p class="st" id="shotT">Semua PO masuk</p><div class="tree" id="tree"></div></div>
     <div class="acts"><button id="openAll">Buka semua</button><button id="closeAll">Tutup semua</button></div></div>
   <div class="side">
-    <div class="card glass"><h3><svg class="ic"><use href="#i-pkg"/></svg>Stok tersedia (tanpa nomor PO)</h3><div id="stok"></div></div>
+    <div class="card glass"><h3><svg class="ic"><use href="#i-pkg"/></svg>Stok tersedia (PO Number: Stock)</h3><div id="stok"></div></div>
     <div class="card glass" id="waCard" hidden><h3><svg class="ic"><use href="#i-chat"/></svg>Kalimat update untuk grup WhatsApp</h3><textarea id="wa"></textarea>
       <div class="acts"><button id="copy" class="pri">Salin teks</button><button id="send">Kirim ke WhatsApp</button></div></div>
   </div>
@@ -227,7 +227,8 @@ function norm(j){
   if(a.length&&Array.isArray(a[0])){const h=a[0];a=a.slice(1).map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]])))}
   return a.map(r=>{
     const o={};for(const k in r)o[String(k).toLowerCase().replace(/[^a-z0-9]/g,'')]=r[k];
-    return{po:String(o.ponumber??'').trim(),upd:dkey(o.poupdate),unit:String(o.unitnumber||'').trim(),
+    const pn=String(o.ponumber??'').trim();
+    return{po:pn,isStok:/^sto(c)?k\b/i.test(pn),upd:dkey(o.poupdate),unit:String(o.unitnumber||'').trim(),
       client:String(o.client||'').trim(),del:dkey(o.deliverydate),sn:String(o.serialnumber||''),
       done:!!dkey(o.statusdelivery),qty:Number(o.qty)||1};
   }).filter(r=>r.unit);
@@ -253,7 +254,7 @@ async function load(){
 $('#reload').onclick=load;
 
 function render(){
-  const po=R.filter(r=>r.po),stok=R.filter(r=>!r.po),T=today();
+  const po=R.filter(r=>r.po&&!r.isStok),stok=R.filter(r=>r.isStok),T=today();
   const dates=[...new Set(po.map(r=>r.upd).filter(Boolean))].sort().reverse();
   if(!sel||!dates.includes(sel))sel=dates[0]||'';
   $('#sel').innerHTML=dates.slice(0,15).map(d=>`<option value="${d}" ${d==sel?'selected':''}>${hari(d)}, ${fd(d)} (${po.filter(r=>r.upd==d).length} PO)</option>`).join('');
@@ -372,7 +373,7 @@ const RCSS=`.rpt{position:relative;width:794px;background:#fff;color:#14233b;fon
 .rpt .ft{border-top:1px solid #dbe3ef;padding-top:10px;color:#6b7a90;font-size:10.5px;display:flex;justify-content:space-between;gap:12px}
 .rpt .em{padding:14px;border:1px dashed #c8d3e4;border-radius:10px;color:#6b7a90;text-align:center}`;
 function rptHTML(){
-  const po=R.filter(r=>r.po),T=today(),{sel:s,byC,stokU,stokTot,nPO}=LAST;
+  const po=R.filter(r=>r.po&&!r.isStok),T=today(),{sel:s,byC,stokU,stokTot,nPO}=LAST;
   const totPO=po.reduce((a,r)=>a+r.qty,0),nU=new Set(po.filter(r=>r.upd==s).map(r=>r.unit)).size,dn=po.filter(r=>r.done).length;
   const kp=(l,v,k,b)=>`<div style="--k:${k};--b:${b}"><small>${l}</small><b>${v}</b></div>`;
   let h=`<div class="rpt"><div class="sec rh"><img src="${LOGO}"><div class="rt"><b>Laporan Update PO</b><span>${hari(s)}, ${fd(s)}</span></div></div><div class="rl"></div>`+
@@ -380,7 +381,7 @@ function rptHTML(){
   h+=nPO?Object.keys(byC).sort().map(c=>`<div class="sec"><h4>PO masuk · ${esc(c)}</h4><table><tr><th>Unit</th><th class="n">PO</th><th>Nomor PO</th><th>Tanggal kirim</th><th class="n">Stok</th></tr>`+
     Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).map(([u,v])=>`<tr><td><b>${esc(u)}</b></td><td class="n">${v.n}</td><td>${[...v.po].map(esc).join(', ')}</td><td>${Object.keys(v.del).sort().map(d=>`<span class="cn">${fs(d)} ×${v.del[d]}</span>`).join('')}</td><td class="n">${stokU[u]||0}</td></tr>`).join('')+'</table></div>').join(''):'<div class="sec em">Belum ada PO masuk pada tanggal ini.</div>';
   const mx=Math.max(1,...Object.values(stokU));
-  h+=`<div class="sec"><h4>Stok tersedia (tanpa nomor PO)</h4><table><tr><th>Unit</th><th class="n">Stok</th><th style="width:46%">Proporsi</th></tr>`+Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`<tr><td>${esc(u)}</td><td class="n">${n}</td><td><div class="rb"><i style="width:${n/mx*100}%"></i></div></td></tr>`).join('')+`<tr class="tc"><td>Total stok</td><td class="n">${stokTot}</td><td></td></tr></table></div>`;
+  h+=`<div class="sec"><h4>Stok tersedia (PO Number: Stock)</h4><table><tr><th>Unit</th><th class="n">Stok</th><th style="width:46%">Proporsi</th></tr>`+Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`<tr><td>${esc(u)}</td><td class="n">${n}</td><td><div class="rb"><i style="width:${n/mx*100}%"></i></div></td></tr>`).join('')+`<tr class="tc"><td>Total stok</td><td class="n">${stokTot}</td><td></td></tr></table></div>`;
   const cm=T.slice(0,7);
   [...new Set(po.map(r=>r.client))].sort().forEach(c=>{
     const rows=po.filter(r=>r.client==c&&r.del),ms={};
