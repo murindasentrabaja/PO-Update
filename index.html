@@ -186,7 +186,7 @@ textarea{position:relative;width:100%;min-height:290px;resize:vertical;border:1p
   <div class="card glass"><div id="shot"><p class="st" id="shotT">Semua PO masuk</p><div class="tree" id="tree"></div></div>
     <div class="acts"><button id="openAll">Buka semua</button><button id="closeAll">Tutup semua</button></div></div>
   <div class="side">
-    <div class="card glass"><h3><svg class="ic"><use href="#i-pkg"/></svg>Stok tersedia (PO Number: Stock)</h3><div id="stok"></div></div>
+    <div class="card glass"><h3><svg class="ic"><use href="#i-pkg"/></svg>Stok tersedia (Noted: Stock)</h3><div id="stok"></div></div>
     <div class="card glass" id="waCard" hidden><h3><svg class="ic"><use href="#i-chat"/></svg>Kalimat update untuk grup WhatsApp</h3><textarea id="wa"></textarea>
       <div class="acts"><button id="copy" class="pri">Salin teks</button><button id="send">Kirim ke WhatsApp</button></div></div>
   </div>
@@ -227,8 +227,8 @@ function norm(j){
   if(a.length&&Array.isArray(a[0])){const h=a[0];a=a.slice(1).map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]])))}
   return a.map(r=>{
     const o={};for(const k in r)o[String(k).toLowerCase().replace(/[^a-z0-9]/g,'')]=r[k];
-    const pn=String(o.ponumber??'').trim();
-    return{po:pn,isStok:/^sto(c)?k\b/i.test(pn),upd:dkey(o.poupdate),unit:String(o.unitnumber||'').trim(),
+    const nt=String(o.noted??'').trim();
+    return{po:String(o.ponumber??'').trim(),isStok:/^sto(c)?k\b/i.test(nt),upd:dkey(o.poupdate),unit:String(o.unitnumber||'').trim(),
       client:String(o.client||'').trim(),del:dkey(o.deliverydate),sn:String(o.serialnumber||''),
       done:!!dkey(o.statusdelivery),qty:Number(o.qty)||1};
   }).filter(r=>r.unit);
@@ -241,10 +241,10 @@ async function load(){
     const r=await fetch(API,{redirect:'follow'});
     R=norm(await r.json());
     if(!R.length)throw new Error('kosong');
-    try{localStorage.setItem('updpo',JSON.stringify(R))}catch(e){}
+    try{localStorage.setItem('updpo2',JSON.stringify(R))}catch(e){}
     msg('');
   }catch(e){
-    try{R=JSON.parse(localStorage.getItem('updpo')||'[]')}catch(x){R=[]}
+    try{R=JSON.parse(localStorage.getItem('updpo2')||'[]')}catch(x){R=[]}
     msg(R.length?'Tidak bisa terhubung ke MSB ERP System, menampilkan data terakhir yang tersimpan.':
       API?'Data dari MSB ERP System belum terbaca. Periksa Koneksi Internet.':'Kaulitas Jaringan');
   }
@@ -381,7 +381,7 @@ function rptHTML(){
   h+=nPO?Object.keys(byC).sort().map(c=>`<div class="sec"><h4>PO masuk · ${esc(c)}</h4><table><tr><th>Unit</th><th class="n">PO</th><th>Nomor PO</th><th>Tanggal kirim</th><th class="n">Stok</th></tr>`+
     Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).map(([u,v])=>`<tr><td><b>${esc(u)}</b></td><td class="n">${v.n}</td><td>${[...v.po].map(esc).join(', ')}</td><td>${Object.keys(v.del).sort().map(d=>`<span class="cn">${fs(d)} ×${v.del[d]}</span>`).join('')}</td><td class="n">${stokU[u]||0}</td></tr>`).join('')+'</table></div>').join(''):'<div class="sec em">Belum ada PO masuk pada tanggal ini.</div>';
   const mx=Math.max(1,...Object.values(stokU));
-  h+=`<div class="sec"><h4>Stok tersedia (PO Number: Stock)</h4><table><tr><th>Unit</th><th class="n">Stok</th><th style="width:46%">Proporsi</th></tr>`+Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`<tr><td>${esc(u)}</td><td class="n">${n}</td><td><div class="rb"><i style="width:${n/mx*100}%"></i></div></td></tr>`).join('')+`<tr class="tc"><td>Total stok</td><td class="n">${stokTot}</td><td></td></tr></table></div>`;
+  h+=`<div class="sec"><h4>Stok tersedia (Noted: Stock)</h4><table><tr><th>Unit</th><th class="n">Stok</th><th style="width:46%">Proporsi</th></tr>`+Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`<tr><td>${esc(u)}</td><td class="n">${n}</td><td><div class="rb"><i style="width:${n/mx*100}%"></i></div></td></tr>`).join('')+`<tr class="tc"><td>Total stok</td><td class="n">${stokTot}</td><td></td></tr></table></div>`;
   const cm=T.slice(0,7);
   [...new Set(po.map(r=>r.client))].sort().forEach(c=>{
     const rows=po.filter(r=>r.client==c&&r.del),ms={};
