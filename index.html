@@ -63,6 +63,8 @@ button:hover::after,.btn:hover::after{left:140%}
 .hr .k span{background:rgba(255,255,255,.7);border:1px solid #fff;border-radius:99px;padding:2px 11px;font-weight:600;font-size:13px;transition:transform .2s}
 [data-theme=dark] .hr .k span{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
 .hr .k span:hover{transform:translateY(-2px) scale(1.08)}.hr .k span i{font-style:normal;color:hsl(var(--h) 60% 48%);margin-left:4px}
+.hr small.sn{color:hsl(var(--h) 55% 36%);font-weight:600;margin-top:2px}[data-theme=dark] .hr small.sn{color:hsl(var(--h) 70% 80%)}
+.snl{margin:6px 0 4px;font-size:12px;font-weight:600;color:var(--mut);overflow-wrap:anywhere}
 .hr .s{text-align:right;font-weight:800;font-size:20px}.hr .s small{font-size:11px}
 .empty{padding:18px 0;color:var(--mut);position:relative}
 .shim{height:64px;border-radius:18px;margin-top:10px;background:linear-gradient(90deg,rgba(255,255,255,.25),rgba(255,255,255,.8),rgba(255,255,255,.25));background-size:200% 100%;animation:sh 1.4s infinite}
@@ -233,6 +235,22 @@ function norm(j){
       done:!!dkey(o.statusdelivery),qty:Number(o.qty)||1};
   }).filter(r=>r.unit);
 }
+function snFmt(a){
+  const g={},o=[];
+  [...new Set((a||[]).map(x=>String(x||'').trim()).filter(Boolean))].forEach(x=>{
+    const m=x.match(/^(.*?)(\d+)$/);
+    if(m)(g[m[1]]??=[]).push([+m[2],m[2].length,x]);else o.push(x)});
+  const out=[];
+  Object.keys(g).sort().forEach(k=>{
+    const v=g[k].sort((x,y)=>x[0]-y[0]);let i=0;
+    while(i<v.length){
+      let j=i;while(j+1<v.length&&v[j+1][0]==v[j][0]+1)j++;
+      if(j-i>=2)out.push(v[i][2]+' – '+String(v[j][0]).padStart(v[j][1],'0'));
+      else for(let q=i;q<=j;q++)out.push(v[q][2]);
+      i=j+1}
+  });
+  return out.concat(o).join(', ')||'-';
+}
 function msg(t){const m=$('#msg');m.style.display=t?'block':'none';m.textContent=t||''}
 
 async function load(){
@@ -263,13 +281,13 @@ function render(){
 
   // hero: update terbaru per unit
   const up=po.filter(r=>r.upd==sel),byC={};
-  up.forEach(r=>{const c=byC[r.client]??={};const u=c[r.unit]??={n:0,po:new Set,del:{}};u.n+=r.qty;u.po.add(r.po);u.del[r.del]=(u.del[r.del]||0)+r.qty});
+  up.forEach(r=>{const c=byC[r.client]??={};const u=c[r.unit]??={n:0,po:new Set,del:{},sn:[]};u.n+=r.qty;u.po.add(r.po);u.sn.push(r.sn);u.del[r.del]=(u.del[r.del]||0)+r.qty});
   const nPO=up.reduce((a,r)=>a+r.qty,0);
   $('#ht').innerHTML=sel?`Update PO ${hari(sel)}, ${fd(sel)}${sel==T?'<span class="tag">Hari ini</span>':''}`:'Belum ada data';
   $('#hs').textContent=sel?`${nPO} PO masuk pada ${new Set(up.map(r=>r.unit)).size} unit · stok tersedia ${stokTot} unit`:'';
   $('#hrows').innerHTML=nPO?Object.keys(byC).sort().map(c=>`<div class="cl">${esc(c)}</div>`+Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).map(([u,v])=>{
     const p=[...v.po];
-    return`<div class="hr" style="--h:${hue(u)}"><div class="u">${esc(u)}<small>${esc(p.slice(0,3).join(', '))}${p.length>3?' +'+(p.length-3):''}</small></div>
+    return`<div class="hr" style="--h:${hue(u)}"><div class="u">${esc(u)}<small>${esc(p.slice(0,3).join(', '))}${p.length>3?' +'+(p.length-3):''}</small><small class="sn">SN: ${esc(snFmt(v.sn))}</small></div>
     <div class="q"><b class="cu" data-n="${v.n}">0</b> PO</div>
     <div class="k">${Object.keys(v.del).sort().map(d=>`<span>${fs(d)}<i>×${v.del[d]}</i></span>`).join('')}</div>
     <div class="s"><span class="cu" data-n="${stokU[u]||0}">0</span><small>stok</small></div></div>`}).join('')).join(''):'<div class="empty">Belum ada PO masuk pada tanggal ini.</div>';
@@ -298,7 +316,7 @@ function render(){
   const L=[`📢 *UPDATE PO MASUK*`,`${hari(sel||T)}, ${fd(sel||T)}`,''];
   if(nPO){Object.keys(byC).sort().forEach(c=>{L.push(`*${c}*`);
     Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).forEach(([u,v])=>{
-      L.push(`▪️ ${u}: *${v.n} PO* (stok ${stokU[u]||0})`,`   PO: ${[...v.po].join(', ')}`,
+      L.push(`▪️ ${u}: *${v.n} PO* (stok ${stokU[u]||0})`,`   PO: ${[...v.po].join(', ')}`,`   SN: ${snFmt(v.sn)}`,
         `   Kirim: ${Object.keys(v.del).sort().map(d=>fs(d)+(v.del[d]>1?' ('+v.del[d]+')':'')).join(', ')}`)});L.push('')})}
   else L.push('Belum ada PO masuk pada tanggal ini.','');
   L.push(`📦 *Stok tersedia: ${stokTot} unit*`,Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`${u} ${n}`).join(' • '),'',
@@ -335,7 +353,7 @@ function welcome(){
   try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,1)}catch(e){}
   const{sel:s,byC,stokU,stokTot,nPO,T}=LAST;
   ov(`<div class="wl"><div class="orb"><svg class="ic"><use href="#i-mega"/></svg></div><h3>Update PO ${s==T?'hari ini':fd(s)}</h3><p><b class="cu" data-n="${nPO}">0</b> PO masuk · stok <b class="cu" data-n="${stokTot}">0</b> unit</p></div>`+
-  Object.values(byC).flatMap(c=>Object.entries(c)).map(([u,v])=>`<div class="ug" style="--h:${hue(u)}"><b>${esc(u)}</b><span>${v.n} PO · stok ${stokU[u]||0}</span></div><div class="ch">${Object.keys(v.del).sort().map(d=>`<span>${fs(d)} ×${v.del[d]}</span>`).join('')}</div>`).join('')+
+  Object.values(byC).flatMap(c=>Object.entries(c)).map(([u,v])=>`<div class="ug" style="--h:${hue(u)}"><b>${esc(u)}</b><span>${v.n} PO · stok ${stokU[u]||0}</span></div><div class="ch">${Object.keys(v.del).sort().map(d=>`<span>${fs(d)} ×${v.del[d]}</span>`).join('')}</div><div class="snl">SN: ${esc(snFmt(v.sn))}</div>`).join('')+
   `<button class="pri" data-x>Lihat laporan</button>`);
   cu();if(s==T)boom();
 }
@@ -365,7 +383,7 @@ const RCSS=`.rpt{position:relative;width:794px;background:#fff;color:#14233b;fon
 .rpt table{width:100%;border-collapse:collapse;font-size:11.5px}
 .rpt th{background:#0b3f94;color:#fff;text-align:left;padding:7px 9px;font-weight:600}
 .rpt td b{white-space:nowrap}.rpt td{padding:7px 9px;border-bottom:1px solid #e3e9f2;vertical-align:top}
-.rpt tr:nth-child(even) td{background:#f4f7fc}.rpt .n{text-align:right;font-weight:700;white-space:nowrap}
+.rpt tr:nth-child(even) td{background:#f4f7fc}.rpt .n{text-align:right;font-weight:700;white-space:nowrap}.rpt .snc{font-weight:600;color:#14233b;overflow-wrap:anywhere}
 .rpt .cn{display:inline-block;background:#e8efff;color:#0b3f94;border-radius:99px;padding:0 9px;margin:1px 4px 1px 0;font-weight:600;white-space:nowrap}
 .rpt .cn.t{background:#d9f5e6;color:#14804a}
 .rpt .rb{height:7px;border-radius:4px;background:#e6edf7;min-width:70px}.rpt .rb i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#0b3f94,#4f8cff)}
@@ -378,8 +396,8 @@ function rptHTML(){
   const kp=(l,v,k,b)=>`<div style="--k:${k};--b:${b}"><small>${l}</small><b>${v}</b></div>`;
   let h=`<div class="rpt"><div class="sec rh"><img src="${LOGO}"><div class="rt"><b>Laporan Update PO</b><span>${hari(s)}, ${fd(s)}</span></div></div><div class="rl"></div>`+
    `<div class="sec kp">${kp('PO masuk',nPO,'#0b3f94','#eaf0fb')}${kp('Unit terdampak',nU,'#7c3aed','#f1eaff')}${kp('Stok tersedia',stokTot,'#e8590c','#fff1e6')}${kp('PO terkirim',dn+' / '+totPO,'#14804a','#e4f7ec')}</div>`;
-  h+=nPO?Object.keys(byC).sort().map(c=>`<div class="sec"><h4>PO masuk · ${esc(c)}</h4><table><tr><th>Unit</th><th class="n">PO</th><th>Nomor PO</th><th>Tanggal kirim</th><th class="n">Stok</th></tr>`+
-    Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).map(([u,v])=>`<tr><td><b>${esc(u)}</b></td><td class="n">${v.n}</td><td>${[...v.po].map(esc).join(', ')}</td><td>${Object.keys(v.del).sort().map(d=>`<span class="cn">${fs(d)} ×${v.del[d]}</span>`).join('')}</td><td class="n">${stokU[u]||0}</td></tr>`).join('')+'</table></div>').join(''):'<div class="sec em">Belum ada PO masuk pada tanggal ini.</div>';
+  h+=nPO?Object.keys(byC).sort().map(c=>`<div class="sec"><h4>PO masuk · ${esc(c)}</h4><table><tr><th>Unit</th><th class="n">PO</th><th>Nomor PO</th><th>Serial Number</th><th>Tanggal kirim</th><th class="n">Stok</th></tr>`+
+    Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).map(([u,v])=>`<tr><td><b>${esc(u)}</b></td><td class="n">${v.n}</td><td>${[...v.po].map(esc).join(', ')}</td><td class="snc">${esc(snFmt(v.sn))}</td><td>${Object.keys(v.del).sort().map(d=>`<span class="cn">${fs(d)} ×${v.del[d]}</span>`).join('')}</td><td class="n">${stokU[u]||0}</td></tr>`).join('')+'</table></div>').join(''):'<div class="sec em">Belum ada PO masuk pada tanggal ini.</div>';
   const mx=Math.max(1,...Object.values(stokU));
   h+=`<div class="sec"><h4>Stok tersedia (Noted: Stock)</h4><table><tr><th>Unit</th><th class="n">Stok</th><th style="width:46%">Proporsi</th></tr>`+Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`<tr><td>${esc(u)}</td><td class="n">${n}</td><td><div class="rb"><i style="width:${n/mx*100}%"></i></div></td></tr>`).join('')+`<tr class="tc"><td>Total stok</td><td class="n">${stokTot}</td><td></td></tr></table></div>`;
   const cm=T.slice(0,7);
