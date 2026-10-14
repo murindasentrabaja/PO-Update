@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Update PO · MSB</title>
+<title>Update Order Number · MSB</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -52,7 +52,7 @@ button:hover::after,.btn:hover::after{left:140%}
 .tag{display:inline-block;background:linear-gradient(135deg,#ffb7de,#ffc4a8);color:#5a2338;font-weight:700;font-size:12px;border-radius:99px;padding:1px 12px;margin-left:10px;vertical-align:middle;animation:pl 2s infinite}
 @keyframes pl{50%{box-shadow:0 0 0 7px rgba(255,183,222,.35)}}
 .cl{margin:18px 0 2px;color:var(--mut);font-weight:700;font-size:13px;position:relative}
-.hr{position:relative;display:grid;grid-template-columns:minmax(150px,1.1fr) 90px minmax(0,2.2fr) 80px;gap:14px;align-items:center;padding:13px 16px 13px 22px;margin-top:10px;border-radius:18px;overflow:hidden;background:hsl(var(--h) 90% 92%/.55);border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 1px 0 #fff,0 6px 18px hsl(var(--h) 60% 70%/.2);animation:rise .7s both;transition:transform .25s}
+.hr{position:relative;display:grid;grid-template-columns:minmax(150px,1.1fr) 140px minmax(0,2.2fr) 80px;gap:14px;align-items:center;padding:13px 16px 13px 22px;margin-top:10px;border-radius:18px;overflow:hidden;background:hsl(var(--h) 90% 92%/.55);border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 1px 0 #fff,0 6px 18px hsl(var(--h) 60% 70%/.2);animation:rise .7s both;transition:transform .25s}
 [data-theme=dark] .hr{background:hsl(var(--h) 40% 30%/.45);border-color:rgba(255,255,255,.14)}
 .hr:hover{transform:translateY(-3px) scale(1.01)}
 .hr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(hsl(var(--h) 75% 70%),hsl(calc(var(--h) + 50) 75% 72%))}
@@ -95,7 +95,7 @@ details[open]>summary::before{transform:rotate(90deg)}
 @keyframes gw{from{transform:scaleX(0)}}
 .stk b{grid-row:1/3;grid-column:2;text-align:right;font-size:17px}
 .tot{display:flex;justify-content:space-between;border-top:1px solid var(--gb);padding-top:10px;margin-top:6px;font-weight:800;position:relative}
-textarea{position:relative;width:100%;min-height:290px;resize:vertical;border:1px solid var(--gb);border-radius:16px;background:rgba(255,255,255,.4);color:var(--ink);font:13px/1.55 inherit;padding:12px}
+textarea{position:relative;width:100%;min-height:400px;resize:vertical;border:1px solid var(--gb);border-radius:16px;background:rgba(255,255,255,.4);color:var(--ink);font:13px/1.55 inherit;padding:12px}
 [data-theme=dark] textarea{background:rgba(0,0,0,.2)}
 .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;position:relative}.side{display:grid;gap:16px}
 .ov{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(70,55,140,.28);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .35s}
@@ -120,7 +120,7 @@ textarea{position:relative;width:100%;min-height:290px;resize:vertical;border:1p
 .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);padding:10px 22px;border-radius:99px;z-index:90;font-weight:600;animation:rise .4s both;transition:opacity .4s}.toast.out{opacity:0}
 @keyframes rise{from{opacity:0;transform:translateY(22px) scale(.97)}}
 .toast{--x:0}
-@media(max-width:860px){.grid{grid-template-columns:1fr}.hr{grid-template-columns:1fr 78px}.hr .k{grid-column:1/3;order:3}.hr .s{order:2}.hero h1{font-size:21px}.top{border-radius:26px}}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.hr{grid-template-columns:1fr 110px}.hr .k{grid-column:1/3;order:3}.hr .s{order:2}.hero h1{font-size:21px}.top{border-radius:26px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 [hidden]{display:none!important}
@@ -171,7 +171,7 @@ textarea{position:relative;width:100%;min-height:290px;resize:vertical;border:1p
 <canvas id="cv"></canvas>
 <div class="wrap">
 <header class="glass top">
-  <img class="lg" id="lg" alt="PT Murinda Sentra Baja"><span class="tt">Update PO</span><span class="sp"></span>
+  <img class="lg" id="lg" alt="PT Murinda Sentra Baja"><span class="tt">Update Order Number</span><span class="sp"></span>
   <span class="live"><s></s><span id="stamp">Menghubungkan…</span></span>
   <button id="reload"><svg class="ic"><use href="#i-ref"/></svg>Muat ulang</button>
   <button id="bLogin"><svg class="ic"><use href="#i-login"/></svg>Masuk</button><span class="usr" id="usr" hidden></span>
@@ -185,11 +185,11 @@ textarea{position:relative;width:100%;min-height:290px;resize:vertical;border:1p
   <div id="hrows"><div class="shim"></div><div class="shim"></div><div class="shim"></div></div>
 </section>
 <div class="grid">
-  <div class="card glass"><div id="shot"><p class="st" id="shotT">Semua PO masuk</p><div class="tree" id="tree"></div></div>
+  <div class="card glass"><div id="shot"><p class="st" id="shotT">Semua Order Number masuk</p><div class="tree" id="tree"></div></div>
     <div class="acts"><button id="openAll">Buka semua</button><button id="closeAll">Tutup semua</button></div></div>
   <div class="side">
     <div class="card glass"><h3><svg class="ic"><use href="#i-pkg"/></svg>Stok tersedia (Noted: Stock)</h3><div id="stok"></div></div>
-    <div class="card glass" id="waCard" hidden><h3><svg class="ic"><use href="#i-chat"/></svg>update untuk Grup MSB</h3><textarea id="wa"></textarea>
+    <div class="card glass" id="waCard" hidden><h3><svg class="ic"><use href="#i-chat"/></svg>Update untuk Grup MSB</h3><textarea id="wa"></textarea>
       <div class="acts"><button id="copy" class="pri">Salin teks</button><button id="send">Kirim ke WhatsApp</button></div></div>
   </div>
 </div>
@@ -275,7 +275,7 @@ function render(){
   const po=R.filter(r=>r.po&&!r.isStok),stok=R.filter(r=>r.isStok),T=today();
   const dates=[...new Set(po.map(r=>r.upd).filter(Boolean))].sort().reverse();
   if(!sel||!dates.includes(sel))sel=dates[0]||'';
-  $('#sel').innerHTML=dates.slice(0,15).map(d=>`<option value="${d}" ${d==sel?'selected':''}>${hari(d)}, ${fd(d)} (${po.filter(r=>r.upd==d).length} PO)</option>`).join('');
+  $('#sel').innerHTML=dates.slice(0,15).map(d=>`<option value="${d}" ${d==sel?'selected':''}>${hari(d)}, ${fd(d)} (${po.filter(r=>r.upd==d).length} Order Number)</option>`).join('');
   const stokU={};stok.forEach(r=>stokU[r.unit]=(stokU[r.unit]||0)+r.qty);
   const stokTot=stok.reduce((a,r)=>a+r.qty,0);
 
@@ -283,14 +283,14 @@ function render(){
   const up=po.filter(r=>r.upd==sel),byC={};
   up.forEach(r=>{const c=byC[r.client]??={};const u=c[r.unit]??={n:0,po:new Set,del:{},sn:[]};u.n+=r.qty;u.po.add(r.po);u.sn.push(r.sn);u.del[r.del]=(u.del[r.del]||0)+r.qty});
   const nPO=up.reduce((a,r)=>a+r.qty,0);
-  $('#ht').innerHTML=sel?`Update PO ${hari(sel)}, ${fd(sel)}${sel==T?'<span class="tag">Hari ini</span>':''}`:'Belum ada data';
-  $('#hs').textContent=sel?`${nPO} PO masuk pada ${new Set(up.map(r=>r.unit)).size} unit · stok tersedia ${stokTot} unit`:'';
+  $('#ht').innerHTML=sel?`Update Order Number ${hari(sel)}, ${fd(sel)}${sel==T?'<span class="tag">Hari ini</span>':''}`:'Belum ada data';
+  $('#hs').textContent=sel?`${nPO} Order Number masuk pada ${new Set(up.map(r=>r.unit)).size} jenis unit · stok tersedia ${stokTot} unit`:'';
   $('#hrows').innerHTML=nPO?Object.keys(byC).sort().map(c=>`<div class="cl">${esc(c)}</div>`+Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).map(([u,v])=>{
     const p=[...v.po];
-    return`<div class="hr" style="--h:${hue(u)}"><div class="u">${esc(u)}<small>${esc(p.slice(0,3).join(', '))}${p.length>3?' +'+(p.length-3):''}</small><small class="sn">SN: ${esc(snFmt(v.sn))}</small></div>
-    <div class="q"><b class="cu" data-n="${v.n}">0</b> PO</div>
+    return`<div class="hr" style="--h:${hue(u)}"><div class="u">${esc(u)}<small>Order Number: ${esc(p.slice(0,3).join(', '))}${p.length>3?' +'+(p.length-3)+' lainnya':''}</small><small class="sn">SN: ${esc(snFmt(v.sn))}</small></div>
+    <div class="q"><b class="cu" data-n="${v.n}">0</b> Order Number</div>
     <div class="k">${Object.keys(v.del).sort().map(d=>`<span>${fs(d)}<i>×${v.del[d]}</i></span>`).join('')}</div>
-    <div class="s"><span class="cu" data-n="${stokU[u]||0}">0</span><small>stok</small></div></div>`}).join('')).join(''):'<div class="empty">Belum ada PO masuk pada tanggal ini.</div>';
+    <div class="s"><span class="cu" data-n="${stokU[u]||0}">0</span><small>stok</small></div></div>`}).join('')).join(''):'<div class="empty">Belum ada Order Number masuk pada tanggal ini.</div>';
 
   // pohon: client > bulan kirim > tanggal kirim
   const tr={};
@@ -304,7 +304,7 @@ function render(){
       return`<details ${mk==cm?'open':''}><summary>${mk.slice(5)} - ${MON[+mk.slice(5)-1]} <b>${M.n}</b></summary>`+Object.keys(M.d).sort().map(dk=>{
         const D=M.d[dk],t=dk==T;
         return`<div class="lf ${t?'today':''}" data-d="${dk}" data-c="${esc(c)}" tabindex="0" role="button"><span>${t?'<u>⏰</u> ':''}${fd(dk)}</span>${D.it.some(r=>r.upd==sel)?'<em>baru</em>':''}<b>${D.n}</b></div>`}).join('')+'</details>'}).join('')+'</details>'}).join('')+'</details>';
-  $('#shotT').textContent=`Laporan PO · ${hari(T)}, ${fd(T)}`;
+  $('#shotT').textContent=`Laporan Order Number · ${hari(T)}, ${fd(T)}`;
 
   // stok
   const mx=Math.max(1,...Object.values(stokU));
@@ -313,17 +313,27 @@ function render(){
     +`<div class="tot"><span>Total stok</span><span>${stokTot} unit</span></div>`;
 
   // kalimat WA
-  const L=[`📢 *UPDATE PO MASUK*`,`${hari(sel||T)}, ${fd(sel||T)}`,''];
-  if(nPO){Object.keys(byC).sort().forEach(c=>{L.push(`*${c}*`);
-    Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).forEach(([u,v])=>{
-      L.push(`▪️ ${u}: *${v.n} PO* (stok ${stokU[u]||0})`,`   PO: ${[...v.po].join(', ')}`,`   SN: ${snFmt(v.sn)}`,
-        `   Kirim: ${Object.keys(v.del).sort().map(d=>fs(d)+(v.del[d]>1?' ('+v.del[d]+')':'')).join(', ')}`)});L.push('')})}
-  else L.push('Belum ada PO masuk pada tanggal ini.','');
-  L.push(`📦 *Stok tersedia: ${stokTot} unit*`,Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`${u} ${n}`).join(' • '),'',
-    `Total PO berjalan: ${Object.keys(tr).sort().map(c=>c.replace(/^PT /,'').replace(/ Indonesia$/,'')+' '+tr[c].n).join(' • ')}`,
-    '','Dear Sobat MSB,','Pesan ini dikirim dari MSB ERP System.','Untuk detail lengkap, silakan akses melalui link berikut:',LINK,'','Terima kasih atas perhatian dan kerja samanya. 🙏');
-  $('#wa').value=L.join('\n');
+  $('#wa').value=buildWA({d:sel||T,byC,stokU,stokTot,nPO,tot:Object.keys(tr).sort().map(c=>[c,tr[c].n])});
   LAST={sel,byC,stokU,stokTot,nPO,T};cu();
+}
+/* ===== Kalimat WhatsApp: rapi, tanpa nomor order & tanggal kirim ===== */
+function buildWA({d,byC,stokU,stokTot,nPO,tot}){
+  const LN='━━━━━━━━━━━━━━',L=['📢 *UPDATE ORDER NUMBER MASUK*','🗓️ '+hari(d)+', '+fd(d),''];
+  if(nPO){
+    const nU=new Set(Object.values(byC).flatMap(c=>Object.keys(c))).size;
+    L.push(`Total masuk: *${nPO} Order Number* (${nU} jenis unit)`,'');
+    Object.keys(byC).sort().forEach(c=>{
+      L.push(LN,`🏢 *${c||'Lainnya'}*`,'');
+      Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).forEach(([u,v])=>{
+        L.push(`▪️ *${u}* — *${v.n} Order Number*`,`├ Serial Number: ${snFmt(v.sn)}`,`└ Stok tersedia: ${stokU[u]||0} unit`,'')});
+    });
+    L.push(LN);
+  }else L.push('Belum ada Order Number masuk pada tanggal ini.','',LN);
+  L.push(`📦 *STOK TERSEDIA: ${stokTot} unit*`);
+  Object.entries(stokU).sort((a,b)=>b[1]-a[1]).forEach(([u,n])=>L.push(`▫️ ${u}: ${n} unit`));
+  if(tot.length){L.push('','📊 *TOTAL ORDER NUMBER BERJALAN*');tot.forEach(([c,n])=>L.push(`▫️ ${c||'Lainnya'}: ${n} Order Number`))}
+  L.push('',LN,'','Dear Sobat MSB,','Pesan ini dikirim dari MSB ERP System.','Untuk detail lengkap, silakan akses melalui link berikut:',LINK,'','Terima kasih atas perhatian dan kerja samanya. 🙏');
+  return L.join('\n');
 }
 $('#sel').onchange=e=>{sel=e.target.value;render()};
 document.getElementById('openAll').onclick=()=>document.querySelectorAll('#tree details').forEach(d=>d.open=true);
@@ -344,16 +354,16 @@ function openDay(dk,c){
   const it=R.filter(r=>r.po&&r.del==dk&&r.client==c),by={};
   it.forEach(r=>(by[r.unit]??=[]).push(r));
   const pc=it.length?it.filter(r=>r.done).length/it.length:0;
-  ov(`<div class="ph"><div><h3>${hari(dk)}, ${fd(dk)}</h3><p>${esc(c)} · ${it.length} PO</p></div><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="stroke-dasharray:${(pc*163.4).toFixed(1)} 163.4"/></svg><span>${Math.round(pc*100)}%<small>terkirim</small></span></div></div>`+
-  Object.entries(by).map(([u,a])=>`<div class="ug" style="--h:${hue(u)}"><b>${esc(u)}</b><span>${a.length} PO</span></div>`+a.map(r=>`<div class="li"><span>${esc(r.po)}<small>${esc(r.sn)}</small></span>${r.upd==sel?'<em>baru</em>':''}<i class="${r.done?'ok':'wt'}">${r.done?'Terkirim':'Menunggu'}</i></div>`).join('')).join('')+
+  ov(`<div class="ph"><div><h3>${hari(dk)}, ${fd(dk)}</h3><p>${esc(c)} · ${it.length} Order Number</p></div><div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="stroke-dasharray:${(pc*163.4).toFixed(1)} 163.4"/></svg><span>${Math.round(pc*100)}%<small>terkirim</small></span></div></div>`+
+  Object.entries(by).map(([u,a])=>`<div class="ug" style="--h:${hue(u)}"><b>${esc(u)}</b><span>${a.length} Order Number</span></div>`+a.map(r=>`<div class="li"><span><b>Order Number: ${esc(r.po)}</b><small>Serial Number: ${esc(r.sn||'-')}</small></span>${r.upd==sel?'<em>baru</em>':''}<i class="${r.done?'ok':'wt'}">${r.done?'Terkirim':'Menunggu'}</i></div>`).join('')).join('')+
   `<button class="pri" data-x>Tutup</button>`);
 }
 function welcome(){
   if(!LAST||!LAST.nPO)return;const k='seen'+LAST.sel;
   try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,1)}catch(e){}
   const{sel:s,byC,stokU,stokTot,nPO,T}=LAST;
-  ov(`<div class="wl"><div class="orb"><svg class="ic"><use href="#i-mega"/></svg></div><h3>Update PO ${s==T?'hari ini':fd(s)}</h3><p><b class="cu" data-n="${nPO}">0</b> PO masuk · stok <b class="cu" data-n="${stokTot}">0</b> unit</p></div>`+
-  Object.values(byC).flatMap(c=>Object.entries(c)).map(([u,v])=>`<div class="ug" style="--h:${hue(u)}"><b>${esc(u)}</b><span>${v.n} PO · stok ${stokU[u]||0}</span></div><div class="ch">${Object.keys(v.del).sort().map(d=>`<span>${fs(d)} ×${v.del[d]}</span>`).join('')}</div><div class="snl">SN: ${esc(snFmt(v.sn))}</div>`).join('')+
+  ov(`<div class="wl"><div class="orb"><svg class="ic"><use href="#i-mega"/></svg></div><h3>Update Order Number ${s==T?'hari ini':fd(s)}</h3><p><b class="cu" data-n="${nPO}">0</b> Order Number masuk · stok <b class="cu" data-n="${stokTot}">0</b> unit</p></div>`+
+  Object.values(byC).flatMap(c=>Object.entries(c)).map(([u,v])=>`<div class="ug" style="--h:${hue(u)}"><b>${esc(u)}</b><span>${v.n} Order Number · stok ${stokU[u]||0}</span></div><div class="ch">${Object.keys(v.del).sort().map(d=>`<span>${fs(d)} ×${v.del[d]}</span>`).join('')}</div><div class="snl">SN: ${esc(snFmt(v.sn))}</div>`).join('')+
   `<button class="pri" data-x>Lihat laporan</button>`);
   cu();if(s==T)boom();
 }
@@ -371,44 +381,98 @@ $('#theme').onclick=()=>{const d=document.documentElement.dataset.theme=='dark'?
 /* ===== Logo & laporan ===== */
 const LOGO='data:image/png;base64,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';
 $('#lg').src=LOGO;
-const RCSS=`.rpt{position:relative;width:794px;background:#fff;color:#14233b;font:12px/1.5 'Plus Jakarta Sans',system-ui,sans-serif;padding:34px 40px 26px;text-align:left}
-.rpt *{box-sizing:border-box}.rpt .sec{margin-bottom:18px}
-.rpt .rh{display:flex;justify-content:space-between;align-items:center}.rpt .rh img{height:48px;width:auto}
-.rpt .rt{text-align:right}.rpt .rt b{display:block;font-size:21px;color:#0b3f94}.rpt .rt span{color:#5b6b82;font-size:12px}
-.rpt .rl{height:4px;border-radius:2px;background:linear-gradient(90deg,#0b3f94 84%,#c1272d 84%);margin-bottom:18px}
-.rpt .kp{display:flex;gap:10px}.rpt .kp div{flex:1;border-radius:12px;padding:11px 13px;border-left:5px solid var(--k);background:var(--b)}
-.rpt .kp small{display:block;color:#5b6b82;font-size:11px}.rpt .kp b{font-size:24px;line-height:1.25;color:var(--k)}
-.rpt h4{margin:0 0 8px;font-size:13px;color:#0b3f94;display:flex;align-items:center;gap:8px}
-.rpt h4::before{content:'';width:4px;height:15px;border-radius:2px;background:#c1272d}
-.rpt table{width:100%;border-collapse:collapse;font-size:11.5px}
-.rpt th{background:#0b3f94;color:#fff;text-align:left;padding:7px 9px;font-weight:600}
-.rpt td b{white-space:nowrap}.rpt td{padding:7px 9px;border-bottom:1px solid #e3e9f2;vertical-align:top}
-.rpt tr:nth-child(even) td{background:#f4f7fc}.rpt .n{text-align:right;font-weight:700;white-space:nowrap}.rpt .snc{font-weight:600;color:#14233b;overflow-wrap:anywhere}
-.rpt .cn{display:inline-block;background:#e8efff;color:#0b3f94;border-radius:99px;padding:0 9px;margin:1px 4px 1px 0;font-weight:600;white-space:nowrap}
+const BLNF=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const RCSS=`.rpt{position:relative;width:794px;background:#fff;color:#14233b;font:13px/1.55 'Plus Jakarta Sans',system-ui,sans-serif;padding:34px 40px 26px;text-align:left}
+.rpt *{box-sizing:border-box}.rpt .sec{margin-bottom:14px}
+.rpt .rh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.rpt .rh img{height:50px;width:auto}
+.rpt .rt{text-align:right}.rpt .rt b{display:block;font-size:22px;line-height:1.3;color:#0b3f94}.rpt .rt span{color:#5b6b82;font-size:13px}
+.rpt .rl{height:4px;border-radius:2px;background:linear-gradient(90deg,#0b3f94 84%,#c1272d 84%);margin-bottom:16px}
+.rpt .kp{display:flex;gap:10px}.rpt .kc{flex:1;border-radius:12px;padding:11px 14px;border-left:5px solid #0b3f94}
+.rpt .kc small{display:block;color:#3d4d66;font-size:12px;font-weight:600}.rpt .kc b{display:block;font-size:26px;line-height:1.3}.rpt .kc em{display:block;font-style:normal;color:#6b7a90;font-size:11px}
+.rpt .nt{background:#f4f7fc;border-radius:10px;padding:9px 14px;color:#5b6b82;font-size:11.5px;line-height:1.5}.rpt .nt b{color:#14233b}
+.rpt .nt .df{margin-top:3px}.rpt .nt .df span{display:block;padding:1px 0}
+.rpt h4{margin:0 0 8px;font-size:14px;color:#0b3f94;display:flex;align-items:center;gap:8px}
+.rpt h4::before{content:'';width:4px;height:16px;border-radius:2px;background:#c1272d;flex:none}
+.rpt .hc{margin-left:auto;color:#6b7a90;font-size:12px;font-weight:600}
+.rpt .kh{margin-bottom:8px}.rpt .kh h4{margin:0}
+.rpt .bk{display:flex;gap:14px;border:1px solid #dbe3ef;border-left:5px solid #0b3f94;border-radius:10px;padding:10px 14px;margin-bottom:8px;background:#fff}
+.rpt .bl{width:148px;flex:none}.rpt .bu{display:block;font-size:15px;line-height:1.35;overflow-wrap:anywhere}
+.rpt .bq{display:block;font-size:22px;font-weight:800;line-height:1.35}
+.rpt .bs{display:inline-block;margin-top:4px;background:#fff1e6;color:#e8590c;border-radius:99px;padding:3px 11px;font-size:11.5px;font-weight:700;line-height:14px;white-space:nowrap}
+.rpt .bs.z{background:#eef1f6;color:#6b7a90}
+.rpt .br{flex:1;min-width:0;border-left:1px solid #e3e9f2;padding-left:14px}
+.rpt .rw{display:flex;gap:10px;padding:4px 0;align-items:flex-start}.rpt .rw+.rw{border-top:1px dashed #e3e9f2}
+.rpt .lb{width:96px;flex:none;color:#6b7a90;font-weight:600;font-size:12px;line-height:22px;white-space:nowrap}.rpt .vl{flex:1;min-width:0;font-weight:600;line-height:22px;overflow-wrap:anywhere}
+.rpt .cs{display:flex;flex-wrap:wrap;gap:4px 6px}
+.rpt .cn{display:block;background:#e8efff;color:#0b3f94;border-radius:99px;padding:3px 11px;font-weight:600;font-size:12px;line-height:16px;white-space:nowrap}.rpt .cn b{font-weight:800}
 .rpt .cn.t{background:#d9f5e6;color:#14804a}
-.rpt .rb{height:7px;border-radius:4px;background:#e6edf7;min-width:70px}.rpt .rb i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#0b3f94,#4f8cff)}
+.rpt table{width:100%;border-collapse:collapse;font-size:12.5px}
+.rpt th{background:#0b3f94;color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+.rpt td{padding:8px 10px;border-bottom:1px solid #e3e9f2;vertical-align:middle}
+.rpt tr:nth-child(even) td{background:#f4f7fc}.rpt .n{text-align:right;font-weight:700;white-space:nowrap}
+.rpt .rb{height:8px;border-radius:4px;background:#e6edf7;min-width:70px}.rpt .rb i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#0b3f94,#4f8cff)}
 .rpt .ok{color:#14804a}.rpt .mt{color:#6b7a90;font-weight:600}.rpt tr.tc td{background:#eaf0fb;font-weight:800;color:#0b3f94}
-.rpt .ft{border-top:1px solid #dbe3ef;padding-top:10px;color:#6b7a90;font-size:10.5px;display:flex;justify-content:space-between;gap:12px}
-.rpt .em{padding:14px;border:1px dashed #c8d3e4;border-radius:10px;color:#6b7a90;text-align:center}`;
+.rpt .sj{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 8px;font-weight:800;font-size:13.5px;color:#0b3f94}
+.rpt .sj .sm{font-weight:600;font-size:12px;color:#6b7a90}.rpt .sj .sm b{font-size:14px;color:#0b3f94}
+.rpt .cw,.rpt .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.rpt .cw{margin-bottom:5px}.rpt .cw span{text-align:center;font-size:11px;font-weight:700;color:#6b7a90;padding:2px 0}.rpt .cw span.wk{color:#c1272d}
+.rpt .cd{height:40px;border-radius:9px;border:1px solid #e3e9f2;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 10px}
+.rpt .cd.e{border-color:transparent;background:none}
+.rpt .cd.wk{background:#fbf8f8}
+.rpt .cd .dn{font-size:12px;font-weight:600;color:#8a97ab}.rpt .cd.wk .dn{color:#c98a8d}
+.rpt .cd b{font-size:17px;font-weight:800;line-height:1;color:#0b3f94}
+.rpt .cd.on{background:#e8efff;border-color:#b9cdf5}.rpt .cd.on .dn{color:#3d4d66}
+.rpt .cd.td{background:#d9f5e6;border-color:#14804a}.rpt .cd.td .dn{color:#14804a;font-weight:800}.rpt .cd.td b{color:#14804a}
+.rpt .lgd{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;color:#6b7a90;font-size:11px}
+.rpt .lgd span{display:flex;align-items:center;gap:6px}
+.rpt .lgd i{display:block;width:14px;height:14px;border-radius:4px;border:1px solid #b9cdf5;background:#e8efff}.rpt .lgd i.g{background:#d9f5e6;border-color:#14804a}
+.rpt .ft{border-top:1px solid #dbe3ef;padding-top:10px;margin-bottom:0;color:#6b7a90;font-size:11px;display:flex;justify-content:space-between;gap:12px}
+.rpt .em{padding:16px;border:1px dashed #c8d3e4;border-radius:10px;color:#6b7a90;text-align:center}`;
+function calHTML(mk,days,T){
+  const y=+mk.slice(0,4),m=+mk.slice(5)-1,dim=new Date(Date.UTC(y,m+1,0)).getUTCDate(),f=(new Date(Date.UTC(y,m,1)).getUTCDay()+6)%7;
+  let c='';
+  for(let i=0;i<f;i++)c+='<div class="cd e"></div>';
+  for(let d=1;d<=dim;d++){
+    const k=mk+'-'+pad(d),n=days[k]||0,w=(f+d-1)%7>4;
+    c+=`<div class="cd${n?' on':''}${k==T?' td':''}${w?' wk':''}"><span class="dn">${d}</span>${n?`<b>${n}</b>`:''}</div>`;
+  }
+  for(let i=(f+dim)%7?7-(f+dim)%7:0;i>0;i--)c+='<div class="cd e"></div>';
+  return`<div class="cw">${['Sen','Sel','Rab','Kam','Jum','Sab','Min'].map((x,i)=>`<span${i>4?' class="wk"':''}>${x}</span>`).join('')}</div><div class="cg">${c}</div>`+
+   `<div class="lgd"><span><i></i>Ada jadwal kirim (angka = jumlah yang dijadwalkan kirim pada tanggal itu)</span><span><i class="g"></i>Hari ini</span></div>`;
+}
 function rptHTML(){
   const po=R.filter(r=>r.po&&!r.isStok),T=today(),{sel:s,byC,stokU,stokTot,nPO}=LAST;
-  const totPO=po.reduce((a,r)=>a+r.qty,0),nU=new Set(po.filter(r=>r.upd==s).map(r=>r.unit)).size,dn=po.filter(r=>r.done).length;
-  const kp=(l,v,k,b)=>`<div style="--k:${k};--b:${b}"><small>${l}</small><b>${v}</b></div>`;
-  let h=`<div class="rpt"><div class="sec rh"><img src="${LOGO}"><div class="rt"><b>Laporan Update PO</b><span>${hari(s)}, ${fd(s)}</span></div></div><div class="rl"></div>`+
-   `<div class="sec kp">${kp('PO masuk',nPO,'#0b3f94','#eaf0fb')}${kp('Unit terdampak',nU,'#7c3aed','#f1eaff')}${kp('Stok tersedia',stokTot,'#e8590c','#fff1e6')}${kp('PO terkirim',dn+' / '+totPO,'#14804a','#e4f7ec')}</div>`;
-  h+=nPO?Object.keys(byC).sort().map(c=>`<div class="sec"><h4>PO masuk · ${esc(c)}</h4><table><tr><th>Unit</th><th class="n">PO</th><th>Nomor PO</th><th>Serial Number</th><th>Tanggal kirim</th><th class="n">Stok</th></tr>`+
-    Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n).map(([u,v])=>`<tr><td><b>${esc(u)}</b></td><td class="n">${v.n}</td><td>${[...v.po].map(esc).join(', ')}</td><td class="snc">${esc(snFmt(v.sn))}</td><td>${Object.keys(v.del).sort().map(d=>`<span class="cn">${fs(d)} ×${v.del[d]}</span>`).join('')}</td><td class="n">${stokU[u]||0}</td></tr>`).join('')+'</table></div>').join(''):'<div class="sec em">Belum ada PO masuk pada tanggal ini.</div>';
-  const mx=Math.max(1,...Object.values(stokU));
-  h+=`<div class="sec"><h4>Stok tersedia (Noted: Stock)</h4><table><tr><th>Unit</th><th class="n">Stok</th><th style="width:46%">Proporsi</th></tr>`+Object.entries(stokU).sort((a,b)=>b[1]-a[1]).map(([u,n])=>`<tr><td>${esc(u)}</td><td class="n">${n}</td><td><div class="rb"><i style="width:${n/mx*100}%"></i></div></td></tr>`).join('')+`<tr class="tc"><td>Total stok</td><td class="n">${stokTot}</td><td></td></tr></table></div>`;
+  const sum=a=>a.reduce((x,r)=>x+r.qty,0);
+  const totPO=sum(po),nU=new Set(po.filter(r=>r.upd==s).map(r=>r.unit)).size,dn=sum(po.filter(r=>r.done));
+  const kc=(l,v,t,k,b)=>`<div class="kc" style="border-left-color:${k};background:${b}"><small>${l}</small><b style="color:${k}">${v}</b><em>${t}</em></div>`;
+  let h=`<div class="rpt"><div class="sec rh"><img src="${LOGO}" alt=""><div class="rt"><b>Laporan Update Order Number</b><span>${hari(s)}, ${fd(s)}</span></div></div><div class="rl"></div>`+
+   `<div class="sec kp">${kc('Order Number masuk',nPO,'pada tanggal ini','#0b3f94','#eaf0fb')}${kc('Jenis unit',nU,'yang mendapat pesanan','#7c3aed','#f1eaff')}${kc('Stok tersedia',stokTot,'total semua jenis unit','#e8590c','#fff1e6')}${kc('Sudah terkirim',dn+' / '+totPO,'dari seluruh pesanan','#14804a','#e4f7ec')}</div>`+
+   `<div class="sec nt"><b>Cara membaca</b><div class="df"><span><b>Order Number</b> = nomor order pesanan masuk</span><span><b>Serial Number</b> = nomor seri unit</span><span><b>Stok</b> = unit yang sudah difabrikasi tetapi belum memiliki nomor order</span></div></div>`;
+  if(nPO){
+    Object.keys(byC).sort().forEach(c=>{
+      const E=Object.entries(byC[c]).sort((a,b)=>b[1].n-a[1].n),cn=E.reduce((a,x)=>a+x[1].n,0);
+      h+=`<div class="sec kh"><h4>Order Number masuk · ${esc(c||'Lainnya')}<span class="hc">${cn} · ${E.length} jenis unit</span></h4></div>`;
+      E.forEach(([u,v])=>{
+        const hh=hue(u),st=stokU[u]||0;
+        h+=`<div class="sec bk" style="border-left-color:hsl(${hh},62%,52%)"><div class="bl"><b class="bu">${esc(u)}</b><b class="bq" style="color:hsl(${hh},62%,40%)">${v.n}</b><span class="bs${st?'':' z'}">Stok ${st} unit</span></div>`+
+         `<div class="br"><div class="rw"><span class="lb">Order Number</span><span class="vl">${[...v.po].map(esc).join(', ')||'-'}</span></div>`+
+         `<div class="rw"><span class="lb">Serial Number</span><span class="vl">${esc(snFmt(v.sn))}</span></div>`+
+         `<div class="rw"><span class="lb">Jadwal kirim</span><span class="vl cs">${Object.keys(v.del).sort().map(d=>`<span class="cn">${d?fs(d)+' · <b>'+v.del[d]+'</b>':'Belum dijadwalkan · <b>'+v.del[d]+'</b>'}</span>`).join('')}</span></div></div></div>`;
+      });
+    });
+  }else h+='<div class="sec em">Belum ada Order Number masuk pada tanggal ini.</div>';
+  const mx=Math.max(1,...Object.values(stokU)),SE=Object.entries(stokU).sort((a,b)=>b[1]-a[1]);
+  h+=`<div class="sec"><h4>Stok tersedia</h4><table><tr><th>Unit</th><th class="n">Stok</th><th style="width:46%">Perbandingan jumlah</th></tr>`+(SE.length?SE.map(([u,n])=>`<tr><td>${esc(u)}</td><td class="n">${n}</td><td><div class="rb"><i style="width:${n/mx*100}%"></i></div></td></tr>`).join(''):'<tr><td colspan="3" class="mt">Belum ada stok tersedia.</td></tr>')+`<tr class="tc"><td>Total stok</td><td class="n">${stokTot}</td><td></td></tr></table></div>`;
   const cm=T.slice(0,7);
   [...new Set(po.map(r=>r.client))].sort().forEach(c=>{
     const rows=po.filter(r=>r.client==c&&r.del),ms={};
+    if(!rows.length)return;
     rows.forEach(r=>{const m=ms[r.del.slice(0,7)]??={n:0,d:0,days:{}};m.n+=r.qty;if(r.done)m.d+=r.qty;m.days[r.del]=(m.days[r.del]||0)+r.qty});
-    const mx2=Math.max(1,...Object.values(ms).map(m=>m.n)),tot=rows.reduce((a,r)=>a+r.qty,0),dd=rows.filter(r=>r.done).length;
-    h+=`<div class="sec"><h4>Rekap PO per bulan kirim · ${esc(c)}</h4><table><tr><th>Bulan</th><th class="n">Total PO</th><th class="n">Terkirim</th><th class="n">Menunggu</th><th style="width:32%">Volume</th></tr>`+
-     Object.keys(ms).sort().map(k=>{const m=ms[k];return`<tr><td>${k.slice(5)} - ${MON[+k.slice(5)-1]}</td><td class="n">${m.n}</td><td class="n ok">${m.d}</td><td class="n mt">${m.n-m.d}</td><td><div class="rb"><i style="width:${m.n/mx2*100}%"></i></div></td></tr>`}).join('')+
-     `<tr class="tc"><td>Total</td><td class="n">${tot}</td><td class="n">${dd}</td><td class="n">${rows.length-dd}</td><td></td></tr></table>`+
-     (ms[cm]?`<p style="margin:10px 0 4px;font-weight:700;color:#14233b">Jadwal kirim ${MON[+cm.slice(5)-1]} ${cm.slice(0,4)}</p>`+Object.keys(ms[cm].days).sort().map(d=>`<span class="cn ${d==T?'t':''}">${fs(d)} · ${ms[cm].days[d]}</span>`).join(''):'')+'</div>';
+    const mx2=Math.max(1,...Object.values(ms).map(m=>m.n)),tot=sum(rows),dd=sum(rows.filter(r=>r.done));
+    h+=`<div class="sec"><h4>Rekap jadwal kirim per bulan · ${esc(c||'Lainnya')}</h4><table><tr><th>Bulan kirim</th><th class="n">Total</th><th class="n">Sudah terkirim</th><th class="n">Belum terkirim</th><th style="width:28%">Volume</th></tr>`+
+     Object.keys(ms).sort().map(k=>{const m=ms[k];return`<tr><td>${BLNF[+k.slice(5)-1]} ${k.slice(0,4)}</td><td class="n">${m.n}</td><td class="n ok">${m.d}</td><td class="n mt">${m.n-m.d}</td><td><div class="rb"><i style="width:${m.n/mx2*100}%"></i></div></td></tr>`}).join('')+
+     `<tr class="tc"><td>Total</td><td class="n">${tot}</td><td class="n">${dd}</td><td class="n">${tot-dd}</td><td></td></tr></table>`+
+     (ms[cm]?`<div class="sj"><span>Jadwal kirim ${BLNF[+cm.slice(5)-1]} ${cm.slice(0,4)}</span><span class="sm">Total bulan ini: <b>${ms[cm].n}</b></span></div>`+calHTML(cm,ms[cm].days,T):'')+'</div>';
   });
   return h+`<div class="sec ft"><span>Dokumen otomatis · Sistem ERP PT Murinda Sentra Baja · ${LINK}</span><span>Dibuat ${hari(T)}, ${fd(T)}</span></div></div>`;
 }
@@ -417,14 +481,14 @@ function mount(){
   const w=document.createElement('div');w.style.cssText='position:absolute;left:-9999px;top:0';w.innerHTML=rptHTML();document.body.appendChild(w);return w;
 }
 const ready=()=>LAST&&LAST.sel?true:(toast('Data belum siap'),false);
-const snap=(el,sc)=>html2canvas(el,{scale:sc,backgroundColor:'#ffffff',useCORS:true,logging:false,onclone:d=>{const p=d.querySelector('.rpt').parentNode;p.style.left='0';p.style.top='0'}});
+const snap=(el,sc)=>html2canvas(el,{scale:sc,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:Math.max(innerWidth,900),scrollX:0,scrollY:0,onclone:d=>{const p=d.querySelector('.rpt').parentNode;p.style.left='0';p.style.top='0'}});
 async function exportImg(){
   if(!ready())return;toast('Membuat gambar laporan…');const w=mount();
   try{
     if(document.fonts)await document.fonts.ready;
-    const c=await snap(w.firstChild,innerWidth<700?1.6:2.5);
+    const el=w.firstChild,sc=Math.max(1,Math.min(innerWidth<700?1.6:2.5,Math.sqrt(16e6/(el.offsetWidth*el.offsetHeight)))),c=await snap(el,sc);
     c.toBlob(async b=>{
-      const f=new File([b],'Laporan-Update-PO-'+LAST.sel+'.png',{type:'image/png'});
+      const f=new File([b],'Laporan-Update-Order-Number-'+LAST.sel+'.png',{type:'image/png'});
       if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});return}catch(e){if(e.name=='AbortError')return}}
       const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=f.name;a.click();toast('Gambar laporan diunduh ✓');
     });
@@ -434,10 +498,13 @@ async function exportPDF(){
   if(!ready())return;toast('Membuat PDF…');const w=mount(),el=w.firstChild;
   try{
     if(document.fonts)await document.fonts.ready;
-    const sc=2,cv=await snap(el,sc),k=210/el.offsetWidth,avail=273/k,H=el.offsetHeight;
-    const pg=[];let cur=null;
-    [...el.children].filter(x=>x.classList.contains('sec')).forEach(x=>{const t=x.offsetTop,b=t+x.offsetHeight+18;
-      if(!cur)cur=[0,b];else if(b-cur[0]>avail){pg.push(cur);cur=[t,b]}else cur[1]=b});
+    const sc=Math.max(1,Math.min(2,Math.sqrt(16e6/(el.offsetWidth*el.offsetHeight)))),cv=await snap(el,sc),k=210/el.offsetWidth,avail=273/k,H=el.offsetHeight;
+    const pg=[],ks=[...el.children].filter(x=>x.classList.contains('sec'));let cur=null;
+    for(let i=0;i<ks.length;i++){
+      const a=ks[i];let z=a;while(z.classList.contains('kh')&&ks[i+1]){i++;z=ks[i]}/* judul ikut blok di bawahnya */
+      const t=a.offsetTop,b=z.offsetTop+z.offsetHeight+10;
+      if(!cur)cur=[0,b];else if(b-cur[0]>avail){pg.push(cur);cur=[t,b]}else cur[1]=b;
+    }
     if(cur)pg.push(cur);
     const doc=new window.jspdf.jsPDF({unit:'mm',format:'a4'});
     pg.forEach((p,i)=>{
@@ -446,12 +513,12 @@ async function exportPDF(){
       if(i)doc.addPage();doc.addImage(t.toDataURL('image/jpeg',.95),'JPEG',0,i?10:0,210,h*k);
       doc.setFontSize(8);doc.setTextColor(120);doc.text('Halaman '+(i+1)+' dari '+pg.length,105,291,{align:'center'});
     });
-    doc.save('Laporan-Update-PO-'+LAST.sel+'.pdf');toast('PDF laporan diunduh ✓');
+    doc.save('Laporan-Update-Order-Number-'+LAST.sel+'.pdf');toast('PDF laporan diunduh ✓');
   }catch(e){console.error(e);toast('Gagal membuat PDF')}finally{w.remove()}
 }
 function printRpt(){
   if(!ready())return;const f=document.createElement('iframe');f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';
-  f.srcdoc=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Laporan Update PO ${LAST.sel}</title><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"><style>@page{size:A4;margin:10mm}body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}${RCSS}.rpt{width:auto;padding:0}.rpt .sec{break-inside:avoid;page-break-inside:avoid}</style></head><body>${rptHTML()}</body></html>`;
+  f.srcdoc=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Laporan Update Order Number ${LAST.sel}</title><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"><style>@page{size:A4;margin:10mm}body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}${RCSS}.rpt{width:auto;padding:0}.rpt .sec{break-inside:avoid;page-break-inside:avoid}.rpt .kh{break-after:avoid;page-break-after:avoid}</style></head><body>${rptHTML()}</body></html>`;
   f.onload=()=>setTimeout(()=>{f.contentWindow.focus();f.contentWindow.print();setTimeout(()=>f.remove(),60000)},700);
   document.body.appendChild(f);
 }
